@@ -46,7 +46,6 @@ uvicorn main:app --reload
 link - http://localhost:8000/docs#/
 
 ## Docker
-
 ```powershell
 docker build -t test_stepik_course .
 
@@ -59,4 +58,18 @@ docker run --rm -p 8000:8000 `
   -e JWT_REFRESH_TOKEN_EXPIRE=5184000 `
   -v C:\Repository\test_api_alesya:/app `
   test_stepik_course
+```
+или
+```powershell
+docker pull bezobrazieq/test_stepik_course:latest
+
+docker run --rm -p 8000:8000 `
+  -e APP_HOST=http://localhost:8000 `
+  -e DATABASE_URL=sqlite+aiosqlite:////data/local.db `
+  -e JWT_ALGORITHM=HS256 `
+  -e JWT_SECRET_KEY=automation-engineer-api-course-secret-key `
+  -e JWT_ACCESS_TOKEN_EXPIRE=1800 `
+  -e JWT_REFRESH_TOKEN_EXPIRE=5184000 `
+  -v {полный путь до дирректории где будет храниться local.db}:/data `
+  bezobrazieq/test_stepik_course:latest
 ```
